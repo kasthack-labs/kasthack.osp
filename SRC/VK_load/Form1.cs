@@ -19,6 +19,10 @@ namespace VK_load {
             this._api = new VkApi( txt_token.Text );
             if ( !this._api.IsLogged )
                 MessageBox.Show( @"Bad url" );
+            else {
+                lbl_sign.Text = this._api.Sign;
+                lbl_token.Text = this._api.AccessToken;
+            }
             grp_conf.Enabled = grp_control.Enabled = this._api.IsLogged;
         }
 

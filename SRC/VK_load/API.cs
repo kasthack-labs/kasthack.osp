@@ -33,6 +33,14 @@ namespace VK_load {
             }
         }
         public bool IsLogged { get; private set; }
+
+        public string Sign {
+            get { return this._sign; }
+        }
+
+        public string AccessToken {
+            get { return this._accessToken; }
+        }
         #endregion
 
         #region Constructor
@@ -86,11 +94,11 @@ namespace VK_load {
                 if ( cTe && cancellationToken() )
                     return;
                 var query = String.Format(
-                    "users.get.xml?user_ids={0}&fields={1}&v=5.2",
+                    "user_ids={0}&fields={1}&v=5.2",
                     string.Join( ",", users.ToArray() ),
                     fieldsFormatted
                 );
-                var resp = await this.ExecMethodAsync( query );
+                var resp = await this.ExecMethodAsync("users.get.xml", query );
                 File.WriteAllText(
                     Path.Combine(
                         downloadDir,
@@ -112,14 +120,14 @@ namespace VK_load {
         #endregion
 
         #region Engine
-        private async Task<string> ExecMethodAsync( string query ) {
+        private async Task<string> ExecMethodAsync( string method, string query ) {
             try {
                 var queryB = new StringBuilder();
                 queryB.Insert( 0, "/method/" );
-                queryB.Append( query );
-                queryB.Append( "&access_token=" );
-                queryB.Append( this._accessToken );
-                var sign = SignQuery( queryB.ToString() );
+                queryB.Append( method );
+                queryB.Append( "?access_token=" );
+                queryB.Append( this.AccessToken );
+                var sign = SignQuery( queryB.ToString() + "&" + query );
                 queryB.Insert( 0, APIDomain );
                 queryB.Append( "&sig=" );
                 queryB.Append( sign );
@@ -128,8 +136,8 @@ namespace VK_load {
                     this._textEncoding,
                     null,
                     null,
-                    AWC.RequestMethod.GET,
-                    null,
+                    AWC.RequestMethod.POST,
+                    query,
                     40000 );
             }
             catch ( WebException ) {
@@ -143,7 +151,7 @@ namespace VK_load {
                     _textEncoding.
                     GetBytes(
                         query +
-                        this._sign
+                        this.Sign
                     )
                 )
             ).
