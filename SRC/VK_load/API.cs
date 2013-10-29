@@ -54,8 +54,8 @@ namespace VK_load {
                 var qu =
                     u.Split("#?".ToCharArray())
                         .Last()
-                        .Split("&".ToCharArray())
-                        .Select(a => a.Split("=".ToCharArray()))
+                        .Split('&')
+                        .Select(a => a.Split('='))
                         .Where(a => a.Length == 2)
                         .ToDictionary(a => a[0], a => a[1]);
                 if (qu.ContainsKey("error")) {
