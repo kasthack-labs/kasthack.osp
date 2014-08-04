@@ -52,16 +52,11 @@
             this.lbl_profiles_loaded = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.label7 = new System.Windows.Forms.Label();
             this.lst_fields = new System.Windows.Forms.CheckedListBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
-            this.lbl_token = new System.Windows.Forms.TextBox();
-            this.grp_info = new System.Windows.Forms.GroupBox();
             this.grp_fileds = new System.Windows.Forms.GroupBox();
             this.btn_kill = new System.Windows.Forms.Button();
-            this.lbl_sign = new System.Windows.Forms.TextBox();
             this.grp_auth.SuspendLayout();
             this.grp_conf.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_volume)).BeginInit();
@@ -69,7 +64,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nud_start)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_threads)).BeginInit();
             this.grp_control.SuspendLayout();
-            this.grp_info.SuspendLayout();
             this.grp_fileds.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -131,7 +125,7 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.Location = new System.Drawing.Point(78, 26);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(41, 31);
+            this.label1.Size = new System.Drawing.Size(33, 31);
             this.label1.TabIndex = 1;
             this.label1.Text = "→";
             // 
@@ -268,7 +262,6 @@
             // 
             // nud_threads
             // 
-            this.nud_threads.Enabled = false;
             this.nud_threads.Location = new System.Drawing.Point(96, 27);
             this.nud_threads.Maximum = new decimal(new int[] {
             -727379969,
@@ -394,71 +387,9 @@
             this.label5.TabIndex = 0;
             this.label5.Text = "Profiles loaded:";
             // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(14, 42);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(31, 13);
-            this.label8.TabIndex = 8;
-            this.label8.Text = "Sign:";
-            // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(14, 16);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(41, 13);
-            this.label7.TabIndex = 7;
-            this.label7.Text = "Token:";
-            // 
             // lst_fields
             // 
             this.lst_fields.FormattingEnabled = true;
-            this.lst_fields.Items.AddRange(new object[] {
-            "about",
-            "activity",
-            "bdate",
-            "books",
-            "can_post",
-            "can_see_all_posts",
-            "can_see_audio",
-            "can_write_private_message",
-            "city",
-            "connections",
-            "contacts",
-            "counters",
-            "country",
-            "education",
-            "first_name",
-            "games",
-            "has_mobile",
-            "interests",
-            "last_name",
-            "last_seen",
-            "movies",
-            "nickname",
-            "online",
-            "photo_100",
-            "photo_200",
-            "photo_200_orig",
-            "photo_400_orig",
-            "photo_50",
-            "photo_max",
-            "photo_max_orig",
-            "rating",
-            "relation",
-            "relatives",
-            "schools",
-            "screen_name",
-            "sex",
-            "status",
-            "timezone",
-            "tv",
-            "uid",
-            "universities",
-            "verified",
-            "wall_comments"});
             this.lst_fields.Location = new System.Drawing.Point(6, 48);
             this.lst_fields.Name = "lst_fields";
             this.lst_fields.Size = new System.Drawing.Size(175, 319);
@@ -484,28 +415,6 @@
             this.button2.UseVisualStyleBackColor = true;
             this.button2.Click += new System.EventHandler(this.button2_Click_1);
             // 
-            // lbl_token
-            // 
-            this.lbl_token.Location = new System.Drawing.Point(58, 13);
-            this.lbl_token.Name = "lbl_token";
-            this.lbl_token.ReadOnly = true;
-            this.lbl_token.Size = new System.Drawing.Size(338, 20);
-            this.lbl_token.TabIndex = 11;
-            this.lbl_token.Text = "Not loaded";
-            // 
-            // grp_info
-            // 
-            this.grp_info.Controls.Add(this.lbl_sign);
-            this.grp_info.Controls.Add(this.label7);
-            this.grp_info.Controls.Add(this.lbl_token);
-            this.grp_info.Controls.Add(this.label8);
-            this.grp_info.Location = new System.Drawing.Point(7, 310);
-            this.grp_info.Name = "grp_info";
-            this.grp_info.Size = new System.Drawing.Size(402, 70);
-            this.grp_info.TabIndex = 12;
-            this.grp_info.TabStop = false;
-            this.grp_info.Text = "Info:";
-            // 
             // grp_fileds
             // 
             this.grp_fileds.Controls.Add(this.button1);
@@ -530,23 +439,13 @@
             this.btn_kill.UseVisualStyleBackColor = true;
             this.btn_kill.Click += new System.EventHandler(this.btn_kill_Click);
             // 
-            // lbl_sign
-            // 
-            this.lbl_sign.Location = new System.Drawing.Point(58, 39);
-            this.lbl_sign.Name = "lbl_sign";
-            this.lbl_sign.ReadOnly = true;
-            this.lbl_sign.Size = new System.Drawing.Size(338, 20);
-            this.lbl_sign.TabIndex = 12;
-            this.lbl_sign.Text = "Not loaded";
-            // 
             // frm_main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(684, 387);
+            this.ClientSize = new System.Drawing.Size(684, 386);
             this.Controls.Add(this.btn_kill);
             this.Controls.Add(this.grp_fileds);
-            this.Controls.Add(this.grp_info);
             this.Controls.Add(this.grp_control);
             this.Controls.Add(this.grp_conf);
             this.Controls.Add(this.grp_auth);
@@ -567,8 +466,6 @@
             ((System.ComponentModel.ISupportInitialize)(this.nud_threads)).EndInit();
             this.grp_control.ResumeLayout(false);
             this.grp_control.PerformLayout();
-            this.grp_info.ResumeLayout(false);
-            this.grp_info.PerformLayout();
             this.grp_fileds.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -595,8 +492,6 @@
         private System.Windows.Forms.Label lbl_profiles_loaded;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.Label label7;
         private System.Windows.Forms.NumericUpDown nud_end;
         private System.Windows.Forms.NumericUpDown nud_start;
         private System.Windows.Forms.Label label11;
@@ -607,13 +502,10 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button btn_folder;
-        private System.Windows.Forms.TextBox lbl_token;
-        private System.Windows.Forms.GroupBox grp_info;
         private System.Windows.Forms.GroupBox grp_fileds;
         private System.Windows.Forms.Button btn_kill;
         private System.Windows.Forms.ProgressBar progressbar;
         private System.Windows.Forms.LinkLabel btn_clear;
-        private System.Windows.Forms.TextBox lbl_sign;
     }
 }
 

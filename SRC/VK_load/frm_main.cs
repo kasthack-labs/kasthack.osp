@@ -32,10 +32,13 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
+using VKSharp;
+using VKSharp.Data.Api;
+using VKSharp.Data.Parameters;
 
 namespace VK_load {
     public partial class frm_main : Form {
-        private VkApi _api;
+        private Core _api;
         private bool _running;
         private bool _cancel;
         public frm_main() {
@@ -43,23 +46,15 @@ namespace VK_load {
             CheckForIllegalCrossThreadCalls = false;
         }
 
-        private void button1_Click(object sender, EventArgs e) { Process.Start(String.Format(VkApi.AuthURL, VkApi.AppID)); }
+        private void button1_Click(object sender, EventArgs e) { Process.Start(VKToken.GetOAuthURL( Core.AppID )); }
 
         private void btn_fin_auth_Click(object sender, EventArgs e) {
-            this._api = new VkApi(txt_token.Text);
-            if (!this._api.IsLogged) {
-                MessageBox.Show(@"Bad url! Please try again.", @"Warning!", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                lbl_sign.Text = "Not loaded";
-                lbl_token.Text = "Not loaded";
-            }
-            else {
-                lbl_sign.Text = this._api.Sign;
-                lbl_token.Text = this._api.AccessToken;
-            }
-            grp_conf.Enabled = grp_control.Enabled = grp_fileds.Enabled = this._api.IsLogged;
+            _api = new Core(txt_token.Text);
+            if ( !_api.IsLogged )
+                MessageBox.Show( @"Bad url! Please try again.", @"Warning!", MessageBoxButtons.OK, MessageBoxIcon.Stop );
+            grp_conf.Enabled = grp_control.Enabled = grp_fileds.Enabled = _api.IsLogged;
         }
-        //  private void txt_token_TextChanged(object sender, EventArgs e) {  btn_fin_auth.Enabled = true; } 
-
+        
         private void btn_folder_Click(object sender, EventArgs e) {
             using (var dialog = new FolderBrowserDialog())
                 if (dialog.ShowDialog() == DialogResult.OK)
@@ -67,9 +62,9 @@ namespace VK_load {
         }
 
         private async void btn_run_Click(object sender, EventArgs e) {
-            if (!this._running) {
-                this._running = true;
-                this._cancel = false;
+            if (!_running) {
+                _running = true;
+                _cancel = false;
                 UpdateInterfaceIsRunnig();
                 int start = (int)nud_start.Value,
                     end = (int)nud_end.Value,
@@ -78,27 +73,31 @@ namespace VK_load {
                     MessageBox.Show("Volume must be less than end-start", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 }
                 else
-                    await this._api.LoadUsers(
+                    await _api.LoadUsers(
                         start,
                         end,
+                        (int)nud_threads.Value,
                         txt_outpath.Text,
-                        lst_fields.CheckedItems.OfType<string>().ToArray(),
+                        GetFields(),
                        volume,
                         UpdateProfilesCount,
                         UpdateTraffic,
-                        () => this._cancel
+                        () => _cancel
                     );
-                this._running = false;
+                _running = false;
                 btn_run.Enabled = true;
                 UpdateInterfaceIsRunnig();
                 MessageBox.Show(@"Download complete!", @"Win!", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 progressbar.Value = 0;
-                // btn_kill.Enabled = true;
             }
             else {
                 _cancel = true;
                 btn_run.Enabled = false;
             }
+        }
+
+        private UserFields GetFields() {
+            return lst_fields.SelectedItems.Cast<UserFields>().Aggregate(UserFields.None, (current, item) => current | item);
         }
 
         private void UpdateProfilesCount(long a) {
@@ -119,7 +118,7 @@ namespace VK_load {
         }
 
         private void UpdateInterfaceIsRunnig() {
-            if (this._running) {
+            if (_running) {
                 btn_run.Text = "Step 5. STOP IT!";
                 lbl_state.Text = "Running";
                 lbl_state.ForeColor = Color.DarkGreen;
@@ -164,7 +163,7 @@ namespace VK_load {
         }
 
         private void frm_main_Load(object sender, EventArgs e) {
-
+            lst_fields.DataSource = Enum.GetValues( typeof( UserFields ) );
         }
 
 
