@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -10,41 +11,51 @@ using VKSharp.Data.Api;
 using VKSharp.Data.Parameters;
 
 namespace VK_load {
-    class Core {
+    internal class Core {
         private const int _appID = 3174839;
         private readonly Encoding _textEncoding = Encoding.UTF8;
         private readonly RawApi _api;
-        public static int AppID { get { return _appID; } }
-        public bool IsLogged { get { return _api.IsLogged; } }
+        public static int AppID => _appID;
+        public bool IsLogged => _api.IsLogged;
 
-        public Core(string redirectUrl) {
+        public Core( string redirectUrl ) {
             _api = new RawApi();
-            try { _api.AddToken(VKToken.FromRedirectUrl( redirectUrl )); } catch{ }
+            try {
+                _api.AddToken( VKToken.FromRedirectUrl( redirectUrl ) );
+            }
+            catch {}
         }
-        public async Task LoadUsers( int start, int end, int threads,
-            string downloadDir, UserFields fields, int volumeSize = 1000,
-            Action<long> showCount = null, Action<long> showTraffic = null,
-            Func<bool> cancellationToken = null) {
 
-            bool sCe = showCount != null, sTe = showTraffic != null, cTe = cancellationToken != null;
+        public async Task LoadUsers(
+            int start,
+            int end,
+            int threads,
+            string downloadDir,
+            UserFields fields,
+            int volumeSize = 1000,
+            bool gzip = true,
+            Action<long> showCount = null,
+            Action<long> showTraffic = null,
+            Func<bool> cancellationToken = null ) {
+
             long trafficUsed = 0, usersLoaded = 0;
             var current = start;
+
             var semaphore = new SemaphoreSlim( threads );
 
-            Func<int, Task> getChunk = async i =>
-            {
+            Func<int, Task> getChunk = async i => {
                 try {
-                    var users = Enumerable.Range( i, Math.Min( volumeSize, end - i ) ).Select( a => (uint) a ).ToArray();
-                    if ( cTe && cancellationToken() ) return;
-                    var outfile = Path.Combine( downloadDir, String.Format( "{0}_{1}.xml", users.First(), users.Length ) );
+                    var users = Enumerable.Range( i, Math.Min( volumeSize, end - i ) ).ToArray();
+                    if ( cancellationToken?.Invoke() ?? true ) return;
+                    var outfile = GetChunkPAth( downloadDir, users,gzip );
                     if ( !File.Exists( outfile ) ) {
-                        var resp = await _api.UsersGetAsync( fields, NameCase.Nom, users );
+                        var resp = await _api.Users.Get( fields, NameCase.Nom, users );
                         if ( resp == null ) return;
-                        File.WriteAllText( outfile, resp );
+                        await SaveFile( outfile, resp, gzip );
                         usersLoaded += volumeSize;
                         trafficUsed += _textEncoding.GetByteCount( resp );
-                        if ( sTe ) showTraffic( trafficUsed );
-                        if ( sCe ) showCount( usersLoaded );
+                        showTraffic?.Invoke( trafficUsed );
+                        showCount?.Invoke( usersLoaded );
                     }
                 }
                 catch {}
@@ -53,11 +64,29 @@ namespace VK_load {
                 }
             };
 
-            while (current < end) {
+            while ( current < end ) {
                 await semaphore.WaitAsync();
                 getChunk( current );
                 current += volumeSize;
             }
+        }
+
+        private async Task SaveFile( string outfile, string resp, bool gzip ) {
+            using ( var f = File.OpenWrite( outfile ) ) {
+                using ( Stream s = gzip ? (Stream) new GZipStream( f, CompressionMode.Compress ) : f ) {
+                    using ( var sw = new StreamWriter(s) ) {
+                        await sw.WriteAsync( resp );
+                        await sw.FlushAsync();
+                    }
+                }
+            }
+        }
+
+        private static string GetChunkPAth( string downloadDir, int[] users, bool gzip ) {
+            var filename = String.Format( "{0}_{1}.json{2}", users.First(), users.Length, gzip?".gz" :"" );
+            downloadDir = Path.Combine( downloadDir, ( users.First() / 1000000 ).ToString() );
+            if ( !Directory.Exists( downloadDir ) ) Directory.CreateDirectory( downloadDir );
+            return Path.Combine( downloadDir, filename );
         }
     }
 }

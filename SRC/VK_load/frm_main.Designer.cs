@@ -1,5 +1,5 @@
 ﻿namespace VK_load {
-    partial class frm_main {
+    partial class FrmMain {
         /// <summary>
         /// Требуется переменная конструктора.
         /// </summary>
@@ -23,7 +23,7 @@
         /// содержимое данного метода при помощи редактора кода.
         /// </summary>
         private void InitializeComponent() {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_main));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmMain));
             this.grp_auth = new System.Windows.Forms.GroupBox();
             this.btn_clear = new System.Windows.Forms.LinkLabel();
             this.btn_fin_auth = new System.Windows.Forms.Button();
@@ -32,6 +32,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btn_auth = new System.Windows.Forms.Button();
             this.grp_conf = new System.Windows.Forms.GroupBox();
+            this.chkCompressOutput = new System.Windows.Forms.CheckBox();
             this.btn_folder = new System.Windows.Forms.Button();
             this.nud_volume = new System.Windows.Forms.NumericUpDown();
             this.label12 = new System.Windows.Forms.Label();
@@ -52,7 +53,7 @@
             this.lbl_profiles_loaded = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.lst_fields = new System.Windows.Forms.CheckedListBox();
+            this.lstFields = new System.Windows.Forms.CheckedListBox();
             this.button1 = new System.Windows.Forms.Button();
             this.button2 = new System.Windows.Forms.Button();
             this.grp_fileds = new System.Windows.Forms.GroupBox();
@@ -91,7 +92,7 @@
             this.btn_clear.TabIndex = 5;
             this.btn_clear.TabStop = true;
             this.btn_clear.Text = "[clear]";
-            this.btn_clear.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.btn_clear_LinkClicked);
+            this.btn_clear.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.ResetToken);
             // 
             // btn_fin_auth
             // 
@@ -101,7 +102,7 @@
             this.btn_fin_auth.TabIndex = 4;
             this.btn_fin_auth.Text = "Step 3. Login";
             this.btn_fin_auth.UseVisualStyleBackColor = true;
-            this.btn_fin_auth.Click += new System.EventHandler(this.btn_fin_auth_Click);
+            this.btn_fin_auth.Click += new System.EventHandler(this.CompleteAuth);
             // 
             // label2
             // 
@@ -137,10 +138,11 @@
             this.btn_auth.TabIndex = 0;
             this.btn_auth.Text = "Step  1. Auth";
             this.btn_auth.UseVisualStyleBackColor = true;
-            this.btn_auth.Click += new System.EventHandler(this.button1_Click);
+            this.btn_auth.Click += new System.EventHandler(this.OpenOAuth);
             // 
             // grp_conf
             // 
+            this.grp_conf.Controls.Add(this.chkCompressOutput);
             this.grp_conf.Controls.Add(this.btn_folder);
             this.grp_conf.Controls.Add(this.nud_volume);
             this.grp_conf.Controls.Add(this.label12);
@@ -155,24 +157,34 @@
             this.grp_conf.Enabled = false;
             this.grp_conf.Location = new System.Drawing.Point(7, 85);
             this.grp_conf.Name = "grp_conf";
-            this.grp_conf.Size = new System.Drawing.Size(477, 92);
+            this.grp_conf.Size = new System.Drawing.Size(477, 131);
             this.grp_conf.TabIndex = 1;
             this.grp_conf.TabStop = false;
             this.grp_conf.Text = "Step 4. Configure:";
             // 
+            // chkCompressOutput
+            // 
+            this.chkCompressOutput.AutoSize = true;
+            this.chkCompressOutput.Location = new System.Drawing.Point(370, 27);
+            this.chkCompressOutput.Name = "chkCompressOutput";
+            this.chkCompressOutput.Size = new System.Drawing.Size(82, 17);
+            this.chkCompressOutput.TabIndex = 11;
+            this.chkCompressOutput.Text = "GZip output";
+            this.chkCompressOutput.UseVisualStyleBackColor = true;
+            // 
             // btn_folder
             // 
-            this.btn_folder.Location = new System.Drawing.Point(188, 53);
+            this.btn_folder.Location = new System.Drawing.Point(317, 96);
             this.btn_folder.Name = "btn_folder";
             this.btn_folder.Size = new System.Drawing.Size(24, 23);
             this.btn_folder.TabIndex = 10;
             this.btn_folder.Text = "...";
             this.btn_folder.UseVisualStyleBackColor = true;
-            this.btn_folder.Click += new System.EventHandler(this.btn_folder_Click);
+            this.btn_folder.Click += new System.EventHandler(this.Browse);
             // 
             // nud_volume
             // 
-            this.nud_volume.Location = new System.Drawing.Point(367, 55);
+            this.nud_volume.Location = new System.Drawing.Point(96, 62);
             this.nud_volume.Maximum = new decimal(new int[] {
             1000,
             0,
@@ -184,7 +196,7 @@
             0,
             0});
             this.nud_volume.Name = "nud_volume";
-            this.nud_volume.Size = new System.Drawing.Size(98, 20);
+            this.nud_volume.Size = new System.Drawing.Size(116, 20);
             this.nud_volume.TabIndex = 9;
             this.nud_volume.Value = new decimal(new int[] {
             1000,
@@ -195,7 +207,7 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(364, 29);
+            this.label12.Location = new System.Drawing.Point(14, 62);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(63, 13);
             this.label12.TabIndex = 8;
@@ -203,7 +215,7 @@
             // 
             // nud_end
             // 
-            this.nud_end.Location = new System.Drawing.Point(253, 55);
+            this.nud_end.Location = new System.Drawing.Point(253, 62);
             this.nud_end.Maximum = new decimal(new int[] {
             -727379969,
             232,
@@ -238,7 +250,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(218, 57);
+            this.label11.Location = new System.Drawing.Point(218, 64);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(26, 13);
             this.label11.TabIndex = 5;
@@ -255,9 +267,9 @@
             // 
             // txt_outpath
             // 
-            this.txt_outpath.Location = new System.Drawing.Point(96, 55);
+            this.txt_outpath.Location = new System.Drawing.Point(96, 98);
             this.txt_outpath.Name = "txt_outpath";
-            this.txt_outpath.Size = new System.Drawing.Size(88, 20);
+            this.txt_outpath.Size = new System.Drawing.Size(215, 20);
             this.txt_outpath.TabIndex = 3;
             // 
             // nud_threads
@@ -280,7 +292,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(14, 58);
+            this.label4.Location = new System.Drawing.Point(14, 101);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(63, 13);
             this.label4.TabIndex = 1;
@@ -307,7 +319,7 @@
             this.grp_control.Controls.Add(this.label6);
             this.grp_control.Controls.Add(this.label5);
             this.grp_control.Enabled = false;
-            this.grp_control.Location = new System.Drawing.Point(6, 183);
+            this.grp_control.Location = new System.Drawing.Point(7, 222);
             this.grp_control.Name = "grp_control";
             this.grp_control.Size = new System.Drawing.Size(478, 121);
             this.grp_control.TabIndex = 2;
@@ -349,7 +361,7 @@
             this.btn_run.TabIndex = 4;
             this.btn_run.Text = "Step 5. RUT IT!";
             this.btn_run.UseVisualStyleBackColor = true;
-            this.btn_run.Click += new System.EventHandler(this.btn_run_Click);
+            this.btn_run.Click += new System.EventHandler(this.Run);
             // 
             // lbl_traf
             // 
@@ -387,13 +399,13 @@
             this.label5.TabIndex = 0;
             this.label5.Text = "Profiles loaded:";
             // 
-            // lst_fields
+            // lstFields
             // 
-            this.lst_fields.FormattingEnabled = true;
-            this.lst_fields.Location = new System.Drawing.Point(6, 48);
-            this.lst_fields.Name = "lst_fields";
-            this.lst_fields.Size = new System.Drawing.Size(175, 319);
-            this.lst_fields.TabIndex = 3;
+            this.lstFields.FormattingEnabled = true;
+            this.lstFields.Location = new System.Drawing.Point(6, 48);
+            this.lstFields.Name = "lstFields";
+            this.lstFields.Size = new System.Drawing.Size(175, 319);
+            this.lstFields.TabIndex = 3;
             // 
             // button1
             // 
@@ -403,7 +415,7 @@
             this.button1.TabIndex = 5;
             this.button1.Text = "None";
             this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click_1);
+            this.button1.Click += new System.EventHandler(this.UncheckAllFields);
             // 
             // button2
             // 
@@ -413,13 +425,13 @@
             this.button2.TabIndex = 6;
             this.button2.Text = "All";
             this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click_1);
+            this.button2.Click += new System.EventHandler(this.CheckAllFields);
             // 
             // grp_fileds
             // 
             this.grp_fileds.Controls.Add(this.button1);
             this.grp_fileds.Controls.Add(this.button2);
-            this.grp_fileds.Controls.Add(this.lst_fields);
+            this.grp_fileds.Controls.Add(this.lstFields);
             this.grp_fileds.Enabled = false;
             this.grp_fileds.Location = new System.Drawing.Point(490, 5);
             this.grp_fileds.Name = "grp_fileds";
@@ -431,15 +443,15 @@
             // btn_kill
             // 
             this.btn_kill.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_kill.Location = new System.Drawing.Point(415, 316);
+            this.btn_kill.Location = new System.Drawing.Point(250, 349);
             this.btn_kill.Name = "btn_kill";
-            this.btn_kill.Size = new System.Drawing.Size(69, 64);
+            this.btn_kill.Size = new System.Drawing.Size(234, 31);
             this.btn_kill.TabIndex = 14;
             this.btn_kill.Text = "Step 6. Rel.info";
             this.btn_kill.UseVisualStyleBackColor = true;
-            this.btn_kill.Click += new System.EventHandler(this.btn_kill_Click);
+            this.btn_kill.Click += new System.EventHandler(this.AboutBox);
             // 
-            // frm_main
+            // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -452,10 +464,10 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximumSize = new System.Drawing.Size(700, 425);
             this.MinimumSize = new System.Drawing.Size(700, 425);
-            this.Name = "frm_main";
+            this.Name = "FrmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "VK.Dump()";
-            this.Load += new System.EventHandler(this.frm_main_Load);
+            this.Load += new System.EventHandler(this.OnLoad);
             this.grp_auth.ResumeLayout(false);
             this.grp_auth.PerformLayout();
             this.grp_conf.ResumeLayout(false);
@@ -498,7 +510,7 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.NumericUpDown nud_volume;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.CheckedListBox lst_fields;
+        private System.Windows.Forms.CheckedListBox lstFields;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button btn_folder;
@@ -506,6 +518,7 @@
         private System.Windows.Forms.Button btn_kill;
         private System.Windows.Forms.ProgressBar progressbar;
         private System.Windows.Forms.LinkLabel btn_clear;
+        private System.Windows.Forms.CheckBox chkCompressOutput;
     }
 }
 
