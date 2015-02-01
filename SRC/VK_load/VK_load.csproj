@@ -35,6 +35,9 @@
   <PropertyGroup>
     <ApplicationIcon>faviconnew.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="kasthack.VKSharp">
       <HintPath>..\packages\kasthack.vksharp.0.5.6.1879\lib\net45\kasthack.VKSharp.dll</HintPath>

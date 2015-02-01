@@ -42,12 +42,15 @@ namespace VK_load {
             var current = start;
 
             var semaphore = new SemaphoreSlim( threads );
+            int activeThreads=0;
 
             Func<int, Task> getChunk = async i => {
                 try {
                     var users = Enumerable.Range( i, Math.Min( volumeSize, end - i ) ).ToArray();
-                    if ( cancellationToken?.Invoke() ?? true ) return;
-                    var outfile = GetChunkPAth( downloadDir, users,gzip );
+                    if ( cancellationToken?.Invoke() ?? false ) {
+                        return;
+                    };
+                    var outfile = GetChunkPath( downloadDir, users,gzip );
                     if ( !File.Exists( outfile ) ) {
                         var resp = await _api.Users.Get( fields, NameCase.Nom, users );
                         if ( resp == null ) return;
@@ -60,13 +63,18 @@ namespace VK_load {
                 }
                 catch {}
                 finally {
+                    --activeThreads;
                     semaphore.Release();
                 }
             };
 
             while ( current < end ) {
+                if ( cancellationToken?.Invoke() ?? false ) break;
                 await semaphore.WaitAsync();
-                getChunk( current );
+                Console.WriteLine( "Threads: {0}", ++activeThreads );
+                var tsk = getChunk( current );
+                if (tsk.Status != TaskStatus.RanToCompletion)
+                    await Task.Delay( 400 );
                 current += volumeSize;
             }
         }
@@ -82,7 +90,7 @@ namespace VK_load {
             }
         }
 
-        private static string GetChunkPAth( string downloadDir, int[] users, bool gzip ) {
+        private static string GetChunkPath( string downloadDir, int[] users, bool gzip ) {
             var filename = String.Format( "{0}_{1}.json{2}", users.First(), users.Length, gzip?".gz" :"" );
             downloadDir = Path.Combine( downloadDir, ( users.First() / 1000000 ).ToString() );
             if ( !Directory.Exists( downloadDir ) ) Directory.CreateDirectory( downloadDir );

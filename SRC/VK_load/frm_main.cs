@@ -80,7 +80,7 @@ namespace VK_load {
             progressbar.Value = 0;
         }
 
-        private UserFields GetFields() => lstFields.SelectedItems.Cast<UserFields>().Aggregate(UserFields.None, (current, item) => current | item);
+        private UserFields GetFields() => lstFields.CheckedItems.Cast<UserFields>().Aggregate( UserFields.None, ( current, fields ) => current | fields );
 
         private void UpdateProfilesCount(long a) {
             var total = nud_end.Value - nud_start.Value;
