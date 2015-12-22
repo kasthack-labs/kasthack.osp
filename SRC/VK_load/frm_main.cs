@@ -32,20 +32,31 @@ using System.Drawing;
 using System.Globalization;
 using System.Linq;
 using System.Windows.Forms;
-using VKSharp.Data.Api;
-using VKSharp.Data.Parameters;
+using kasthack.vksharp;
+using kasthack.vksharp.DataTypes.Enums;
 
 namespace VK_load {
     public partial class FrmMain : Form {
         private Core _api;
         private bool _running;
         private bool _cancel;
+        private LoadOptions options;
         public FrmMain() {
             InitializeComponent();
+            lstFields.DataSource = ((UserFields[])Enum.GetValues(typeof(UserFields))).Where(a => a != UserFields.Anything && a != UserFields.Everything).OrderBy( a=>a.ToString() ).ToArray();
             CheckForIllegalCrossThreadCalls = false;
+            //start, end, (int) nud_threads.Value, txt_outpath.Text, GetFields(), volume, chkCompressOutput.Checked, UpdateProfilesCount, UpdateTraffic, () => _cancel );
+            options = new LoadOptions() { ShowCount = UpdateProfilesCount, ShowTraffic = UpdateTraffic, CancellationToken = () => _cancel };
+            this.nud_threads.DataBindings.Add( nameof( nud_threads.Value ), options, nameof( options.Threads ), false, DataSourceUpdateMode.OnPropertyChanged );
+            this.nud_start.DataBindings.Add(nameof(nud_start.Value), options, nameof(options.Start), false, DataSourceUpdateMode.OnPropertyChanged);
+            this.nud_end.DataBindings.Add(nameof(nud_end.Value), options, nameof(options.End), false, DataSourceUpdateMode.OnPropertyChanged);
+            this.nud_volume.DataBindings.Add(nameof(nud_volume.Value), options, nameof(options.VolumeSize), false, DataSourceUpdateMode.OnPropertyChanged);
+            this.txt_outpath.DataBindings.Add( nameof( txt_outpath.Text ), options, nameof( options.Path ), false, DataSourceUpdateMode.OnPropertyChanged);
+            this.chkGZip.DataBindings.Add( nameof( chkGZip.Checked ), options, nameof( options.GZip ), false, DataSourceUpdateMode.OnPropertyChanged);
+            this.chkExecute.DataBindings.Add(nameof(chkExecute.Checked), options, nameof(options.Execute), false, DataSourceUpdateMode.OnPropertyChanged);
         }
 
-        private void OpenOAuth(object sender, EventArgs e) => Process.Start(VKToken.GetOAuthURL( Core.AppID ));
+        private void OpenOAuth(object sender, EventArgs e) => Process.Start(Token.GetOAuthURL( Core.AppID, Permission.Offline ));
 
         private void CompleteAuth(object sender, EventArgs e) {
             _api = new Core(txt_token.Text);
@@ -70,9 +81,9 @@ namespace VK_load {
             _running = true;
             _cancel = false;
             UpdateInterfaceIsRunnig();
-            int start = (int) nud_start.Value, end = (int) nud_end.Value, volume = (int) nud_volume.Value;
-            if ( end - start + 1 < volume ) MessageBox.Show( "Volume must be less than end-start", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
-            else await _api.LoadUsers( start, end, (int) nud_threads.Value, txt_outpath.Text, GetFields(), volume, chkCompressOutput.Checked, UpdateProfilesCount, UpdateTraffic, () => _cancel );
+            this.options.Fields = GetFields();
+            if ( options.End - options.Start + 1 < options.VolumeSize ) MessageBox.Show( "Volume must be less than end-start", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
+            else await _api.LoadUsers( options ).ConfigureAwait( true );
             _running = false;
             btn_run.Enabled = true;
             UpdateInterfaceIsRunnig();
@@ -95,7 +106,7 @@ namespace VK_load {
                 index++;
                 a >>= 10;
             }
-            lbl_traf.Text = String.Format("{0} {1}", a.ToString(CultureInfo.InvariantCulture), postfix[index]);
+            lbl_traf.Text = $"{a.ToString( CultureInfo.InvariantCulture )} {postfix[ index ]}";
 
         }
 
@@ -138,6 +149,8 @@ namespace VK_load {
         } 
         private void ResetToken(object sender, LinkLabelLinkClickedEventArgs e) => txt_token.Text = "";
 
-        private void OnLoad(object sender, EventArgs e) => lstFields.DataSource = Enum.GetValues( typeof( UserFields ) );
+        private void checkBox1_CheckedChanged(object sender, EventArgs e) => nud_volume.Maximum = chkExecute.Checked ? 25000 : 1000;
+
+        //private void OnLoad(object sender, EventArgs e) => 
     }
 }

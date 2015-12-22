@@ -1,4 +1,8 @@
-﻿namespace VK_load {
+﻿using System;
+using System.Linq;
+using kasthack.vksharp.DataTypes.Enums;
+
+namespace VK_load {
     partial class FrmMain {
         /// <summary>
         /// Требуется переменная конструктора.
@@ -32,7 +36,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.btn_auth = new System.Windows.Forms.Button();
             this.grp_conf = new System.Windows.Forms.GroupBox();
-            this.chkCompressOutput = new System.Windows.Forms.CheckBox();
+            this.chkGZip = new System.Windows.Forms.CheckBox();
             this.btn_folder = new System.Windows.Forms.Button();
             this.nud_volume = new System.Windows.Forms.NumericUpDown();
             this.label12 = new System.Windows.Forms.Label();
@@ -58,6 +62,7 @@
             this.button2 = new System.Windows.Forms.Button();
             this.grp_fileds = new System.Windows.Forms.GroupBox();
             this.btn_kill = new System.Windows.Forms.Button();
+            this.chkExecute = new System.Windows.Forms.CheckBox();
             this.grp_auth.SuspendLayout();
             this.grp_conf.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.nud_volume)).BeginInit();
@@ -126,7 +131,7 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.label1.Location = new System.Drawing.Point(78, 26);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(33, 31);
+            this.label1.Size = new System.Drawing.Size(41, 31);
             this.label1.TabIndex = 1;
             this.label1.Text = "→";
             // 
@@ -142,7 +147,8 @@
             // 
             // grp_conf
             // 
-            this.grp_conf.Controls.Add(this.chkCompressOutput);
+            this.grp_conf.Controls.Add(this.chkExecute);
+            this.grp_conf.Controls.Add(this.chkGZip);
             this.grp_conf.Controls.Add(this.btn_folder);
             this.grp_conf.Controls.Add(this.nud_volume);
             this.grp_conf.Controls.Add(this.label12);
@@ -162,15 +168,15 @@
             this.grp_conf.TabStop = false;
             this.grp_conf.Text = "Step 4. Configure:";
             // 
-            // chkCompressOutput
+            // chkGZip
             // 
-            this.chkCompressOutput.AutoSize = true;
-            this.chkCompressOutput.Location = new System.Drawing.Point(370, 27);
-            this.chkCompressOutput.Name = "chkCompressOutput";
-            this.chkCompressOutput.Size = new System.Drawing.Size(82, 17);
-            this.chkCompressOutput.TabIndex = 11;
-            this.chkCompressOutput.Text = "GZip output";
-            this.chkCompressOutput.UseVisualStyleBackColor = true;
+            this.chkGZip.AutoSize = true;
+            this.chkGZip.Location = new System.Drawing.Point(370, 27);
+            this.chkGZip.Name = "chkGZip";
+            this.chkGZip.Size = new System.Drawing.Size(82, 17);
+            this.chkGZip.TabIndex = 11;
+            this.chkGZip.Text = "GZip output";
+            this.chkGZip.UseVisualStyleBackColor = true;
             // 
             // btn_folder
             // 
@@ -186,7 +192,7 @@
             // 
             this.nud_volume.Location = new System.Drawing.Point(96, 62);
             this.nud_volume.Maximum = new decimal(new int[] {
-            1000,
+            25000,
             0,
             0,
             0});
@@ -199,7 +205,7 @@
             this.nud_volume.Size = new System.Drawing.Size(116, 20);
             this.nud_volume.TabIndex = 9;
             this.nud_volume.Value = new decimal(new int[] {
-            1000,
+            1,
             0,
             0,
             0});
@@ -224,11 +230,6 @@
             this.nud_end.Name = "nud_end";
             this.nud_end.Size = new System.Drawing.Size(88, 20);
             this.nud_end.TabIndex = 7;
-            this.nud_end.Value = new decimal(new int[] {
-            228402285,
-            0,
-            0,
-            0});
             // 
             // nud_start
             // 
@@ -241,11 +242,6 @@
             this.nud_start.Name = "nud_start";
             this.nud_start.Size = new System.Drawing.Size(88, 20);
             this.nud_start.TabIndex = 6;
-            this.nud_start.Value = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
             // 
             // label11
             // 
@@ -276,8 +272,13 @@
             // 
             this.nud_threads.Location = new System.Drawing.Point(96, 27);
             this.nud_threads.Maximum = new decimal(new int[] {
-            -727379969,
-            232,
+            50,
+            0,
+            0,
+            0});
+            this.nud_threads.Minimum = new decimal(new int[] {
+            1,
+            0,
             0,
             0});
             this.nud_threads.Name = "nud_threads";
@@ -301,7 +302,6 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Enabled = false;
             this.label3.Location = new System.Drawing.Point(12, 29);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(71, 13);
@@ -451,6 +451,17 @@
             this.btn_kill.UseVisualStyleBackColor = true;
             this.btn_kill.Click += new System.EventHandler(this.AboutBox);
             // 
+            // chkExecute
+            // 
+            this.chkExecute.AutoSize = true;
+            this.chkExecute.Location = new System.Drawing.Point(370, 57);
+            this.chkExecute.Name = "chkExecute";
+            this.chkExecute.Size = new System.Drawing.Size(86, 17);
+            this.chkExecute.TabIndex = 12;
+            this.chkExecute.Text = "Use execute";
+            this.chkExecute.UseVisualStyleBackColor = true;
+            this.chkExecute.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -467,7 +478,6 @@
             this.Name = "FrmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "VK.Dump()";
-            this.Load += new System.EventHandler(this.OnLoad);
             this.grp_auth.ResumeLayout(false);
             this.grp_auth.PerformLayout();
             this.grp_conf.ResumeLayout(false);
@@ -485,6 +495,7 @@
 
         #endregion
 
+        private UserFields[] _fields = ( (UserFields[]) Enum.GetValues( typeof( UserFields ) ) ).Where( a => a != UserFields.Anything && a != UserFields.Everything ).ToArray();
         private System.Windows.Forms.GroupBox grp_auth;
         private System.Windows.Forms.Button btn_fin_auth;
         private System.Windows.Forms.Label label2;
@@ -518,7 +529,8 @@
         private System.Windows.Forms.Button btn_kill;
         private System.Windows.Forms.ProgressBar progressbar;
         private System.Windows.Forms.LinkLabel btn_clear;
-        private System.Windows.Forms.CheckBox chkCompressOutput;
+        private System.Windows.Forms.CheckBox chkGZip;
+        private System.Windows.Forms.CheckBox chkExecute;
     }
 }
 
