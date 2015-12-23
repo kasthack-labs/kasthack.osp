@@ -20,10 +20,11 @@ namespace VK_load {
         public static int AppID => _appID;
         public bool IsLogged => _api.IsLogged;
 
-        public Core( string redirectUrl ) {
+        public Core( string redirectUrl=null ) {
             _api = new RawApi();
             try {
-                _api.AddToken( Token.FromRedirectUrl( redirectUrl ) );
+                if (!String.IsNullOrWhiteSpace(redirectUrl))
+                    _api.AddToken( Token.FromRedirectUrl( redirectUrl ) );
             }
             catch {}
         }
@@ -66,7 +67,7 @@ namespace VK_load {
                 await semaphore.WaitAsync().ConfigureAwait(false);
                 Console.WriteLine( "Threads: {0}", ++activeThreads );
                 var tsk = getChunk( current );
-                if (tsk.Status != TaskStatus.RanToCompletion)
+                if (tsk.Status != TaskStatus.RanToCompletion && options.Delay)
                     await Task.Delay( 400 ).ConfigureAwait(false);
                 current += options.VolumeSize;
             }
@@ -112,6 +113,7 @@ namespace VK_load {
 
     public class LoadOptions {
 
+        public bool Delay { get; set; } = true;
         public int Start { get; set; } = 1;
         public int End { get; set; } = 350000000;
         public int Threads { get; set; } = 25;

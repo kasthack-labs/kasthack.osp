@@ -43,7 +43,7 @@ namespace VK_load {
         private LoadOptions options;
         public FrmMain() {
             InitializeComponent();
-            lstFields.DataSource = ((UserFields[])Enum.GetValues(typeof(UserFields))).Where(a => a != UserFields.Anything && a != UserFields.Everything).OrderBy( a=>a.ToString() ).ToArray();
+            lstFields.DataSource = ((UserFields[])Enum.GetValues(typeof(UserFields))).Where(a => a != UserFields.Anything && a != UserFields.Everything && a != UserFields.None).OrderBy( a=>a.ToString() ).ToArray();
             CheckForIllegalCrossThreadCalls = false;
             //start, end, (int) nud_threads.Value, txt_outpath.Text, GetFields(), volume, chkCompressOutput.Checked, UpdateProfilesCount, UpdateTraffic, () => _cancel );
             options = new LoadOptions() { ShowCount = UpdateProfilesCount, ShowTraffic = UpdateTraffic, CancellationToken = () => _cancel };
@@ -54,15 +54,22 @@ namespace VK_load {
             this.txt_outpath.DataBindings.Add( nameof( txt_outpath.Text ), options, nameof( options.Path ), false, DataSourceUpdateMode.OnPropertyChanged);
             this.chkGZip.DataBindings.Add( nameof( chkGZip.Checked ), options, nameof( options.GZip ), false, DataSourceUpdateMode.OnPropertyChanged);
             this.chkExecute.DataBindings.Add(nameof(chkExecute.Checked), options, nameof(options.Execute), false, DataSourceUpdateMode.OnPropertyChanged);
+            this.chkDelay.DataBindings.Add(nameof(chkDelay.Checked), options, nameof(options.Delay), false, DataSourceUpdateMode.OnPropertyChanged);
         }
 
         private void OpenOAuth(object sender, EventArgs e) => Process.Start(Token.GetOAuthURL( Core.AppID, Permission.Offline ));
 
         private void CompleteAuth(object sender, EventArgs e) {
             _api = new Core(txt_token.Text);
-            if ( !_api.IsLogged )
-                MessageBox.Show( @"Bad url! Please try again.", @"Warning!", MessageBoxButtons.OK, MessageBoxIcon.Stop );
-            grp_conf.Enabled = grp_control.Enabled = grp_fileds.Enabled = _api.IsLogged;
+            //if ( !_api.IsLogged )
+            //    MessageBox.Show( @"Bad url! Please try again.", @"Warning!", MessageBoxButtons.OK, MessageBoxIcon.Stop );
+            chkExecute.Enabled = _api.IsLogged;
+            chkDelay.Enabled = !_api.IsLogged;
+            if ( !_api.IsLogged ) {
+                chkExecute.Checked = false;
+                chkDelay.Checked = false;
+            }
+            grp_conf.Enabled = grp_control.Enabled = grp_fileds.Enabled = true;
         }
         
         private void Browse(object sender, EventArgs e) {
