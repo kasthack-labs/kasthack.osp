@@ -60,13 +60,13 @@ namespace OSP {
                 };
 
                 int[] current;
-                while ( (current=await p.Get( options.VolumeSize ).ConfigureAwait( false )).Any() ) { //todo: file support
+                while ( (current=await p.Get( options.VolumeSize ).ConfigureAwait( false )).Any() ) {
                     if (options.CancellationToken?.Invoke() ?? false ) break;
                     await semaphore.WaitAsync().ConfigureAwait(false);
                     Console.WriteLine( "Threads: {0}", ++activeThreads );
                     var tsk = getChunk( current );
-                    if (tsk.Status != TaskStatus.RanToCompletion && options.Delay)
-                        await Task.Delay( 400 ).ConfigureAwait(false);
+                    if ( options.DelayEnabled)
+                        await Task.Delay( options.Delay ).ConfigureAwait(false);
                 }
                 for ( int i = 0; i < options.Threads; i++ ) await semaphore.WaitAsync().ConfigureAwait( false );
             }
@@ -109,13 +109,14 @@ namespace OSP {
 
     public class LoadOptions {
 
-        public bool Delay { get; set; } = true;
+        public bool DelayEnabled { get; set; } = true;
         public int Start { get; set; } = 1;
         public int End { get; set; } = 350000000;
         public string SourceFile { get; set; }
         public bool UseCounter { get; set; } = true;
         public int Threads { get; set; } = 25;
         public int VolumeSize { get; set; } = 1000;
+        public int Delay { get; set; } = 400;
         public bool GZip { get; set; } = true;
         public bool Execute { get; set; } = true;
         public string Path { get; set; }

@@ -52,11 +52,12 @@ namespace OSP {
             this.nud_threads.DataBindings.Add( nameof( nud_threads.Value ), options, nameof( options.Threads ), false, DataSourceUpdateMode.OnPropertyChanged );
             this.nud_start.DataBindings.Add(nameof(nud_start.Value), options, nameof(options.Start), false, DataSourceUpdateMode.OnPropertyChanged);
             this.nud_end.DataBindings.Add(nameof(nud_end.Value), options, nameof(options.End), false, DataSourceUpdateMode.OnPropertyChanged);
+            this.nudDelay.DataBindings.Add(nameof(nudDelay.Value), options, nameof(options.Delay), false, DataSourceUpdateMode.OnPropertyChanged);
             this.nud_volume.DataBindings.Add(nameof(nud_volume.Value), options, nameof(options.VolumeSize), false, DataSourceUpdateMode.OnPropertyChanged);
             this.txt_outpath.DataBindings.Add( nameof( txt_outpath.Text ), options, nameof( options.Path ), false, DataSourceUpdateMode.OnPropertyChanged);
             this.chkGZip.DataBindings.Add( nameof( chkGZip.Checked ), options, nameof( options.GZip ), false, DataSourceUpdateMode.OnPropertyChanged);
             this.chkExecute.DataBindings.Add(nameof(chkExecute.Checked), options, nameof(options.Execute), false, DataSourceUpdateMode.OnPropertyChanged);
-            this.chkDelay.DataBindings.Add(nameof(chkDelay.Checked), options, nameof(options.Delay), false, DataSourceUpdateMode.OnPropertyChanged);
+            this.chkDelay.DataBindings.Add(nameof(chkDelay.Checked), options, nameof(options.DelayEnabled), false, DataSourceUpdateMode.OnPropertyChanged);
             this.chkUseCounter.DataBindings.Add(nameof(chkUseCounter.Checked), options, nameof(options.UseCounter), false, DataSourceUpdateMode.OnPropertyChanged);
             this.txtSourcefile.DataBindings.Add(nameof(txtSourcefile.Text), options, nameof(options.SourceFile), false, DataSourceUpdateMode.OnPropertyChanged);
         }
@@ -67,9 +68,11 @@ namespace OSP {
             _api = new Core(txt_token.Text);
             chkDelay.Enabled = !_api.IsLogged;
             chkExecute.Enabled = chkExecute.Checked = chkDelay.Checked = _api.IsLogged;
-            grp_conf.Enabled = grp_control.Enabled = grp_fileds.Enabled = true;
+            EnableConfig(true);
         }
-        
+
+        private void EnableConfig(bool status) { grp_conf.Enabled = grp_control.Enabled = grp_fileds.Enabled = status; }
+
         private void Browse(object sender, EventArgs e) {
             using (var dialog = new FolderBrowserDialog())
                 if (dialog.ShowDialog() == DialogResult.OK)
@@ -163,8 +166,12 @@ namespace OSP {
                             "FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER" +
                             "LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS" +
                             "IN THE SOFTWARE.", @"The MIT License (MIT)", MessageBoxButtons.OK, MessageBoxIcon.Information); 
-        } 
-        private void ResetToken(object sender, LinkLabelLinkClickedEventArgs e) => txt_token.Text = "";
+        }
+
+        private void ResetToken( object sender, LinkLabelLinkClickedEventArgs e ) {
+            txt_token.Text = "";
+            EnableConfig( false );
+        }
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e) => nud_volume.Maximum = chkExecute.Checked ? 25000 : 1000;
         
@@ -187,6 +194,13 @@ namespace OSP {
         private string TotalProfilesWithCounter() { return this.lblTotalProfiles.Text = ( nud_end.Value - nud_start.Value + 1 ).ToString(); }
 
         private void nud_end_ValueChanged(object sender, EventArgs e) => TotalProfilesWithCounter();
+
+        private void txt_outpath_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chkDelay_CheckedChanged(object sender, EventArgs e) => nudDelay.Enabled = chkDelay.Checked;
 
         //private void OnLoad(object sender, EventArgs e) => 
     }

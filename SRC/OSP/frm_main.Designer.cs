@@ -36,24 +36,29 @@ namespace OSP {
             this.btn_auth = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.grp_conf = new System.Windows.Forms.GroupBox();
-            this.button3 = new System.Windows.Forms.Button();
-            this.txtSourcefile = new System.Windows.Forms.TextBox();
-            this.chkLoadFromFile = new System.Windows.Forms.RadioButton();
-            this.chkUseCounter = new System.Windows.Forms.RadioButton();
-            this.chkDelay = new System.Windows.Forms.CheckBox();
-            this.chkExecute = new System.Windows.Forms.CheckBox();
-            this.chkGZip = new System.Windows.Forms.CheckBox();
-            this.btn_folder = new System.Windows.Forms.Button();
-            this.nud_volume = new System.Windows.Forms.NumericUpDown();
-            this.label12 = new System.Windows.Forms.Label();
-            this.nud_end = new System.Windows.Forms.NumericUpDown();
-            this.nud_start = new System.Windows.Forms.NumericUpDown();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label10 = new System.Windows.Forms.Label();
-            this.txt_outpath = new System.Windows.Forms.TextBox();
-            this.nud_threads = new System.Windows.Forms.NumericUpDown();
+            this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.nudDelay = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
+            this.nud_threads = new System.Windows.Forms.NumericUpDown();
+            this.label12 = new System.Windows.Forms.Label();
+            this.chkDelay = new System.Windows.Forms.CheckBox();
+            this.nud_volume = new System.Windows.Forms.NumericUpDown();
+            this.chkExecute = new System.Windows.Forms.CheckBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.chkUseCounter = new System.Windows.Forms.RadioButton();
+            this.label10 = new System.Windows.Forms.Label();
+            this.button3 = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.txtSourcefile = new System.Windows.Forms.TextBox();
+            this.nud_start = new System.Windows.Forms.NumericUpDown();
+            this.chkLoadFromFile = new System.Windows.Forms.RadioButton();
+            this.nud_end = new System.Windows.Forms.NumericUpDown();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.txt_outpath = new System.Windows.Forms.TextBox();
+            this.btn_folder = new System.Windows.Forms.Button();
+            this.chkGZip = new System.Windows.Forms.CheckBox();
             this.grp_control = new System.Windows.Forms.GroupBox();
             this.btn_kill = new System.Windows.Forms.Button();
             this.lblTotalProfiles = new System.Windows.Forms.Label();
@@ -73,16 +78,22 @@ namespace OSP {
             this.ofdSourceFile = new System.Windows.Forms.OpenFileDialog();
             this.grp_auth.SuspendLayout();
             this.grp_conf.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_volume)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_end)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_start)).BeginInit();
+            this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudDelay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_threads)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_volume)).BeginInit();
+            this.groupBox2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_start)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_end)).BeginInit();
+            this.groupBox1.SuspendLayout();
             this.grp_control.SuspendLayout();
             this.grp_fileds.SuspendLayout();
             this.SuspendLayout();
             // 
             // grp_auth
             // 
+            this.grp_auth.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.grp_auth.Controls.Add(this.btn_clear);
             this.grp_auth.Controls.Add(this.btn_fin_auth);
             this.grp_auth.Controls.Add(this.label2);
@@ -91,15 +102,16 @@ namespace OSP {
             this.grp_auth.Controls.Add(this.label1);
             this.grp_auth.Location = new System.Drawing.Point(6, 5);
             this.grp_auth.Name = "grp_auth";
-            this.grp_auth.Size = new System.Drawing.Size(478, 74);
+            this.grp_auth.Size = new System.Drawing.Size(480, 74);
             this.grp_auth.TabIndex = 0;
             this.grp_auth.TabStop = false;
             this.grp_auth.Text = "VK Auth:";
             // 
             // btn_clear
             // 
+            this.btn_clear.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_clear.AutoSize = true;
-            this.btn_clear.Location = new System.Drawing.Point(342, 22);
+            this.btn_clear.Location = new System.Drawing.Point(344, 22);
             this.btn_clear.Name = "btn_clear";
             this.btn_clear.Size = new System.Drawing.Size(36, 13);
             this.btn_clear.TabIndex = 5;
@@ -109,7 +121,8 @@ namespace OSP {
             // 
             // btn_fin_auth
             // 
-            this.btn_fin_auth.Location = new System.Drawing.Point(383, 19);
+            this.btn_fin_auth.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_fin_auth.Location = new System.Drawing.Point(385, 19);
             this.btn_fin_auth.Name = "btn_fin_auth";
             this.btn_fin_auth.Size = new System.Drawing.Size(89, 39);
             this.btn_fin_auth.TabIndex = 4;
@@ -128,9 +141,11 @@ namespace OSP {
             // 
             // txt_token
             // 
+            this.txt_token.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_token.Location = new System.Drawing.Point(102, 38);
             this.txt_token.Name = "txt_token";
-            this.txt_token.Size = new System.Drawing.Size(275, 20);
+            this.txt_token.Size = new System.Drawing.Size(277, 20);
             this.txt_token.TabIndex = 2;
             // 
             // btn_auth
@@ -155,201 +170,81 @@ namespace OSP {
             // 
             // grp_conf
             // 
-            this.grp_conf.Controls.Add(this.button3);
-            this.grp_conf.Controls.Add(this.txtSourcefile);
-            this.grp_conf.Controls.Add(this.chkLoadFromFile);
-            this.grp_conf.Controls.Add(this.chkUseCounter);
-            this.grp_conf.Controls.Add(this.chkDelay);
-            this.grp_conf.Controls.Add(this.chkExecute);
-            this.grp_conf.Controls.Add(this.chkGZip);
-            this.grp_conf.Controls.Add(this.btn_folder);
-            this.grp_conf.Controls.Add(this.nud_volume);
-            this.grp_conf.Controls.Add(this.label12);
-            this.grp_conf.Controls.Add(this.nud_end);
-            this.grp_conf.Controls.Add(this.nud_start);
-            this.grp_conf.Controls.Add(this.label11);
-            this.grp_conf.Controls.Add(this.label10);
-            this.grp_conf.Controls.Add(this.txt_outpath);
-            this.grp_conf.Controls.Add(this.nud_threads);
-            this.grp_conf.Controls.Add(this.label4);
-            this.grp_conf.Controls.Add(this.label3);
+            this.grp_conf.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.grp_conf.Controls.Add(this.groupBox3);
+            this.grp_conf.Controls.Add(this.groupBox2);
+            this.grp_conf.Controls.Add(this.groupBox1);
             this.grp_conf.Enabled = false;
             this.grp_conf.Location = new System.Drawing.Point(7, 85);
             this.grp_conf.Name = "grp_conf";
-            this.grp_conf.Size = new System.Drawing.Size(477, 168);
+            this.grp_conf.Size = new System.Drawing.Size(479, 253);
             this.grp_conf.TabIndex = 1;
             this.grp_conf.TabStop = false;
             this.grp_conf.Text = "Step 4. Configure:";
             // 
-            // button3
+            // groupBox3
             // 
-            this.button3.Enabled = false;
-            this.button3.Location = new System.Drawing.Point(435, 57);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(24, 23);
-            this.button3.TabIndex = 17;
-            this.button3.Text = "...";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
+            this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox3.Controls.Add(this.label4);
+            this.groupBox3.Controls.Add(this.nudDelay);
+            this.groupBox3.Controls.Add(this.label3);
+            this.groupBox3.Controls.Add(this.nud_threads);
+            this.groupBox3.Controls.Add(this.label12);
+            this.groupBox3.Controls.Add(this.chkDelay);
+            this.groupBox3.Controls.Add(this.nud_volume);
+            this.groupBox3.Controls.Add(this.chkExecute);
+            this.groupBox3.Location = new System.Drawing.Point(5, 106);
+            this.groupBox3.Name = "groupBox3";
+            this.groupBox3.Size = new System.Drawing.Size(463, 76);
+            this.groupBox3.TabIndex = 21;
+            this.groupBox3.TabStop = false;
+            this.groupBox3.Text = "Requests:";
             // 
-            // txtSourcefile
+            // label4
             // 
-            this.txtSourcefile.Enabled = false;
-            this.txtSourcefile.Location = new System.Drawing.Point(136, 57);
-            this.txtSourcefile.Name = "txtSourcefile";
-            this.txtSourcefile.Size = new System.Drawing.Size(293, 20);
-            this.txtSourcefile.TabIndex = 16;
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(285, 42);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(20, 13);
+            this.label4.TabIndex = 15;
+            this.label4.Text = "ms";
             // 
-            // chkLoadFromFile
+            // nudDelay
             // 
-            this.chkLoadFromFile.AutoSize = true;
-            this.chkLoadFromFile.Location = new System.Drawing.Point(16, 57);
-            this.chkLoadFromFile.Name = "chkLoadFromFile";
-            this.chkLoadFromFile.Size = new System.Drawing.Size(104, 17);
-            this.chkLoadFromFile.TabIndex = 15;
-            this.chkLoadFromFile.TabStop = true;
-            this.chkLoadFromFile.Text = "Load ids from file";
-            this.chkLoadFromFile.UseVisualStyleBackColor = true;
-            // 
-            // chkUseCounter
-            // 
-            this.chkUseCounter.AutoSize = true;
-            this.chkUseCounter.Checked = true;
-            this.chkUseCounter.Location = new System.Drawing.Point(16, 21);
-            this.chkUseCounter.Name = "chkUseCounter";
-            this.chkUseCounter.Size = new System.Drawing.Size(83, 17);
-            this.chkUseCounter.TabIndex = 14;
-            this.chkUseCounter.TabStop = true;
-            this.chkUseCounter.Text = "Use counter";
-            this.chkUseCounter.UseVisualStyleBackColor = true;
-            this.chkUseCounter.CheckedChanged += new System.EventHandler(this.chkUseCounter_CheckedChanged);
-            // 
-            // chkDelay
-            // 
-            this.chkDelay.AutoSize = true;
-            this.chkDelay.Location = new System.Drawing.Point(343, 142);
-            this.chkDelay.Name = "chkDelay";
-            this.chkDelay.Size = new System.Drawing.Size(134, 17);
-            this.chkDelay.TabIndex = 13;
-            this.chkDelay.Text = "Delay betwen requests";
-            this.chkDelay.UseVisualStyleBackColor = true;
-            // 
-            // chkExecute
-            // 
-            this.chkExecute.AutoSize = true;
-            this.chkExecute.Location = new System.Drawing.Point(343, 119);
-            this.chkExecute.Name = "chkExecute";
-            this.chkExecute.Size = new System.Drawing.Size(86, 17);
-            this.chkExecute.TabIndex = 12;
-            this.chkExecute.Text = "Use execute";
-            this.chkExecute.UseVisualStyleBackColor = true;
-            this.chkExecute.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
-            // 
-            // chkGZip
-            // 
-            this.chkGZip.AutoSize = true;
-            this.chkGZip.Location = new System.Drawing.Point(343, 96);
-            this.chkGZip.Name = "chkGZip";
-            this.chkGZip.Size = new System.Drawing.Size(82, 17);
-            this.chkGZip.TabIndex = 11;
-            this.chkGZip.Text = "GZip output";
-            this.chkGZip.UseVisualStyleBackColor = true;
-            // 
-            // btn_folder
-            // 
-            this.btn_folder.Location = new System.Drawing.Point(316, 130);
-            this.btn_folder.Name = "btn_folder";
-            this.btn_folder.Size = new System.Drawing.Size(24, 23);
-            this.btn_folder.TabIndex = 10;
-            this.btn_folder.Text = "...";
-            this.btn_folder.UseVisualStyleBackColor = true;
-            this.btn_folder.Click += new System.EventHandler(this.Browse);
-            // 
-            // nud_volume
-            // 
-            this.nud_volume.Location = new System.Drawing.Point(236, 94);
-            this.nud_volume.Maximum = new decimal(new int[] {
-            25000,
+            this.nudDelay.Location = new System.Drawing.Point(153, 40);
+            this.nudDelay.Maximum = new decimal(new int[] {
+            60000,
             0,
             0,
             0});
-            this.nud_volume.Minimum = new decimal(new int[] {
-            1,
+            this.nudDelay.Minimum = new decimal(new int[] {
+            15,
             0,
             0,
             0});
-            this.nud_volume.Name = "nud_volume";
-            this.nud_volume.Size = new System.Drawing.Size(104, 20);
-            this.nud_volume.TabIndex = 9;
-            this.nud_volume.Value = new decimal(new int[] {
-            1,
+            this.nudDelay.Name = "nudDelay";
+            this.nudDelay.Size = new System.Drawing.Size(120, 20);
+            this.nudDelay.TabIndex = 14;
+            this.nudDelay.Value = new decimal(new int[] {
+            15,
             0,
             0,
             0});
             // 
-            // label12
+            // label3
             // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(170, 96);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(63, 13);
-            this.label12.TabIndex = 8;
-            this.label12.Text = "Volume size";
-            // 
-            // nud_end
-            // 
-            this.nud_end.Location = new System.Drawing.Point(353, 18);
-            this.nud_end.Maximum = new decimal(new int[] {
-            -727379969,
-            232,
-            0,
-            0});
-            this.nud_end.Name = "nud_end";
-            this.nud_end.Size = new System.Drawing.Size(104, 20);
-            this.nud_end.TabIndex = 7;
-            this.nud_end.ValueChanged += new System.EventHandler(this.nud_end_ValueChanged);
-            // 
-            // nud_start
-            // 
-            this.nud_start.Location = new System.Drawing.Point(191, 19);
-            this.nud_start.Maximum = new decimal(new int[] {
-            -727379969,
-            232,
-            0,
-            0});
-            this.nud_start.Name = "nud_start";
-            this.nud_start.Size = new System.Drawing.Size(88, 20);
-            this.nud_start.TabIndex = 6;
-            this.nud_start.ValueChanged += new System.EventHandler(this.nud_start_ValueChanged);
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(285, 20);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(26, 13);
-            this.label11.TabIndex = 5;
-            this.label11.Text = "End";
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(133, 20);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(29, 13);
-            this.label10.TabIndex = 4;
-            this.label10.Text = "Start";
-            // 
-            // txt_outpath
-            // 
-            this.txt_outpath.Location = new System.Drawing.Point(74, 132);
-            this.txt_outpath.Name = "txt_outpath";
-            this.txt_outpath.Size = new System.Drawing.Size(236, 20);
-            this.txt_outpath.TabIndex = 3;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(9, 16);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(46, 13);
+            this.label3.TabIndex = 0;
+            this.label3.Text = "Threads";
             // 
             // nud_threads
             // 
-            this.nud_threads.Location = new System.Drawing.Point(74, 95);
+            this.nud_threads.Location = new System.Drawing.Point(70, 15);
             this.nud_threads.Maximum = new decimal(new int[] {
             50,
             0,
@@ -369,26 +264,230 @@ namespace OSP {
             0,
             0});
             // 
-            // label4
+            // label12
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(13, 135);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(63, 13);
-            this.label4.TabIndex = 1;
-            this.label4.Text = "Output path";
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(166, 16);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(63, 13);
+            this.label12.TabIndex = 8;
+            this.label12.Text = "Volume size";
             // 
-            // label3
+            // chkDelay
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 96);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(46, 13);
-            this.label3.TabIndex = 0;
-            this.label3.Text = "Threads";
+            this.chkDelay.AutoSize = true;
+            this.chkDelay.Location = new System.Drawing.Point(12, 41);
+            this.chkDelay.Name = "chkDelay";
+            this.chkDelay.Size = new System.Drawing.Size(134, 17);
+            this.chkDelay.TabIndex = 13;
+            this.chkDelay.Text = "Delay betwen requests";
+            this.chkDelay.UseVisualStyleBackColor = true;
+            this.chkDelay.CheckedChanged += new System.EventHandler(this.chkDelay_CheckedChanged);
+            // 
+            // nud_volume
+            // 
+            this.nud_volume.Location = new System.Drawing.Point(232, 14);
+            this.nud_volume.Maximum = new decimal(new int[] {
+            25000,
+            0,
+            0,
+            0});
+            this.nud_volume.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.nud_volume.Name = "nud_volume";
+            this.nud_volume.Size = new System.Drawing.Size(104, 20);
+            this.nud_volume.TabIndex = 9;
+            this.nud_volume.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            // 
+            // chkExecute
+            // 
+            this.chkExecute.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkExecute.AutoSize = true;
+            this.chkExecute.Location = new System.Drawing.Point(371, 15);
+            this.chkExecute.Name = "chkExecute";
+            this.chkExecute.Size = new System.Drawing.Size(86, 17);
+            this.chkExecute.TabIndex = 12;
+            this.chkExecute.Text = "Use execute";
+            this.chkExecute.UseVisualStyleBackColor = true;
+            this.chkExecute.CheckedChanged += new System.EventHandler(this.checkBox1_CheckedChanged);
+            // 
+            // groupBox2
+            // 
+            this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox2.Controls.Add(this.chkUseCounter);
+            this.groupBox2.Controls.Add(this.label10);
+            this.groupBox2.Controls.Add(this.button3);
+            this.groupBox2.Controls.Add(this.label11);
+            this.groupBox2.Controls.Add(this.txtSourcefile);
+            this.groupBox2.Controls.Add(this.nud_start);
+            this.groupBox2.Controls.Add(this.chkLoadFromFile);
+            this.groupBox2.Controls.Add(this.nud_end);
+            this.groupBox2.Location = new System.Drawing.Point(6, 19);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(462, 81);
+            this.groupBox2.TabIndex = 20;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "Data:";
+            // 
+            // chkUseCounter
+            // 
+            this.chkUseCounter.AutoSize = true;
+            this.chkUseCounter.Checked = true;
+            this.chkUseCounter.Location = new System.Drawing.Point(9, 19);
+            this.chkUseCounter.Name = "chkUseCounter";
+            this.chkUseCounter.Size = new System.Drawing.Size(83, 17);
+            this.chkUseCounter.TabIndex = 14;
+            this.chkUseCounter.TabStop = true;
+            this.chkUseCounter.Text = "Use counter";
+            this.chkUseCounter.UseVisualStyleBackColor = true;
+            this.chkUseCounter.CheckedChanged += new System.EventHandler(this.chkUseCounter_CheckedChanged);
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(126, 18);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(29, 13);
+            this.label10.TabIndex = 4;
+            this.label10.Text = "Start";
+            // 
+            // button3
+            // 
+            this.button3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.button3.Enabled = false;
+            this.button3.Location = new System.Drawing.Point(426, 42);
+            this.button3.Name = "button3";
+            this.button3.Size = new System.Drawing.Size(24, 20);
+            this.button3.TabIndex = 17;
+            this.button3.Text = "...";
+            this.button3.UseVisualStyleBackColor = true;
+            this.button3.Click += new System.EventHandler(this.button3_Click);
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(278, 18);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(26, 13);
+            this.label11.TabIndex = 5;
+            this.label11.Text = "End";
+            // 
+            // txtSourcefile
+            // 
+            this.txtSourcefile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txtSourcefile.Enabled = false;
+            this.txtSourcefile.Location = new System.Drawing.Point(129, 42);
+            this.txtSourcefile.Name = "txtSourcefile";
+            this.txtSourcefile.Size = new System.Drawing.Size(291, 20);
+            this.txtSourcefile.TabIndex = 16;
+            // 
+            // nud_start
+            // 
+            this.nud_start.Location = new System.Drawing.Point(184, 17);
+            this.nud_start.Maximum = new decimal(new int[] {
+            -727379969,
+            232,
+            0,
+            0});
+            this.nud_start.Name = "nud_start";
+            this.nud_start.Size = new System.Drawing.Size(88, 20);
+            this.nud_start.TabIndex = 6;
+            this.nud_start.ValueChanged += new System.EventHandler(this.nud_start_ValueChanged);
+            // 
+            // chkLoadFromFile
+            // 
+            this.chkLoadFromFile.AutoSize = true;
+            this.chkLoadFromFile.Location = new System.Drawing.Point(9, 42);
+            this.chkLoadFromFile.Name = "chkLoadFromFile";
+            this.chkLoadFromFile.Size = new System.Drawing.Size(104, 17);
+            this.chkLoadFromFile.TabIndex = 15;
+            this.chkLoadFromFile.TabStop = true;
+            this.chkLoadFromFile.Text = "Load ids from file";
+            this.chkLoadFromFile.UseVisualStyleBackColor = true;
+            // 
+            // nud_end
+            // 
+            this.nud_end.Location = new System.Drawing.Point(346, 16);
+            this.nud_end.Maximum = new decimal(new int[] {
+            -727379969,
+            232,
+            0,
+            0});
+            this.nud_end.Name = "nud_end";
+            this.nud_end.Size = new System.Drawing.Size(104, 20);
+            this.nud_end.TabIndex = 7;
+            this.nud_end.ValueChanged += new System.EventHandler(this.nud_end_ValueChanged);
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.label8);
+            this.groupBox1.Controls.Add(this.txt_outpath);
+            this.groupBox1.Controls.Add(this.btn_folder);
+            this.groupBox1.Controls.Add(this.chkGZip);
+            this.groupBox1.Location = new System.Drawing.Point(6, 188);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(462, 52);
+            this.groupBox1.TabIndex = 19;
+            this.groupBox1.TabStop = false;
+            this.groupBox1.Text = "Output:";
+            // 
+            // label8
+            // 
+            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(8, 23);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(29, 13);
+            this.label8.TabIndex = 18;
+            this.label8.Text = "Path";
+            // 
+            // txt_outpath
+            // 
+            this.txt_outpath.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.txt_outpath.Location = new System.Drawing.Point(55, 20);
+            this.txt_outpath.Name = "txt_outpath";
+            this.txt_outpath.Size = new System.Drawing.Size(280, 20);
+            this.txt_outpath.TabIndex = 3;
+            this.txt_outpath.TextChanged += new System.EventHandler(this.txt_outpath_TextChanged);
+            // 
+            // btn_folder
+            // 
+            this.btn_folder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.btn_folder.Location = new System.Drawing.Point(340, 20);
+            this.btn_folder.Name = "btn_folder";
+            this.btn_folder.Size = new System.Drawing.Size(24, 20);
+            this.btn_folder.TabIndex = 10;
+            this.btn_folder.Text = "...";
+            this.btn_folder.UseVisualStyleBackColor = true;
+            this.btn_folder.Click += new System.EventHandler(this.Browse);
+            // 
+            // chkGZip
+            // 
+            this.chkGZip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.chkGZip.AutoSize = true;
+            this.chkGZip.Location = new System.Drawing.Point(370, 22);
+            this.chkGZip.Name = "chkGZip";
+            this.chkGZip.Size = new System.Drawing.Size(73, 17);
+            this.chkGZip.TabIndex = 11;
+            this.chkGZip.Text = "GZip data";
+            this.chkGZip.UseVisualStyleBackColor = true;
             // 
             // grp_control
             // 
+            this.grp_control.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.grp_control.Controls.Add(this.btn_kill);
             this.grp_control.Controls.Add(this.lblTotalProfiles);
             this.grp_control.Controls.Add(this.label7);
@@ -401,17 +500,18 @@ namespace OSP {
             this.grp_control.Controls.Add(this.label6);
             this.grp_control.Controls.Add(this.label5);
             this.grp_control.Enabled = false;
-            this.grp_control.Location = new System.Drawing.Point(7, 259);
+            this.grp_control.Location = new System.Drawing.Point(6, 341);
             this.grp_control.Name = "grp_control";
-            this.grp_control.Size = new System.Drawing.Size(478, 121);
+            this.grp_control.Size = new System.Drawing.Size(480, 121);
             this.grp_control.TabIndex = 2;
             this.grp_control.TabStop = false;
             this.grp_control.Text = "Control:";
             // 
             // btn_kill
             // 
+            this.btn_kill.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.btn_kill.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_kill.Location = new System.Drawing.Point(343, 55);
+            this.btn_kill.Location = new System.Drawing.Point(345, 55);
             this.btn_kill.Name = "btn_kill";
             this.btn_kill.Size = new System.Drawing.Size(123, 31);
             this.btn_kill.TabIndex = 14;
@@ -439,10 +539,12 @@ namespace OSP {
             // 
             // progressbar
             // 
+            this.progressbar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.progressbar.ForeColor = System.Drawing.Color.DodgerBlue;
             this.progressbar.Location = new System.Drawing.Point(16, 92);
             this.progressbar.Name = "progressbar";
-            this.progressbar.Size = new System.Drawing.Size(450, 20);
+            this.progressbar.Size = new System.Drawing.Size(452, 20);
             this.progressbar.Step = 1;
             this.progressbar.TabIndex = 7;
             // 
@@ -512,10 +614,13 @@ namespace OSP {
             // 
             // lstFields
             // 
+            this.lstFields.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.lstFields.FormattingEnabled = true;
             this.lstFields.Location = new System.Drawing.Point(6, 48);
             this.lstFields.Name = "lstFields";
-            this.lstFields.Size = new System.Drawing.Size(175, 319);
+            this.lstFields.Size = new System.Drawing.Size(175, 394);
             this.lstFields.TabIndex = 3;
             // 
             // button1
@@ -530,6 +635,7 @@ namespace OSP {
             // 
             // button2
             // 
+            this.button2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.button2.Location = new System.Drawing.Point(106, 19);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(75, 23);
@@ -540,13 +646,15 @@ namespace OSP {
             // 
             // grp_fileds
             // 
+            this.grp_fileds.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.grp_fileds.Controls.Add(this.button1);
             this.grp_fileds.Controls.Add(this.button2);
             this.grp_fileds.Controls.Add(this.lstFields);
             this.grp_fileds.Enabled = false;
-            this.grp_fileds.Location = new System.Drawing.Point(490, 5);
+            this.grp_fileds.Location = new System.Drawing.Point(492, 5);
             this.grp_fileds.Name = "grp_fileds";
-            this.grp_fileds.Size = new System.Drawing.Size(187, 375);
+            this.grp_fileds.Size = new System.Drawing.Size(187, 457);
             this.grp_fileds.TabIndex = 13;
             this.grp_fileds.TabStop = false;
             this.grp_fileds.Text = "Fields:";
@@ -555,26 +663,30 @@ namespace OSP {
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(684, 386);
+            this.ClientSize = new System.Drawing.Size(686, 474);
             this.Controls.Add(this.grp_fileds);
             this.Controls.Add(this.grp_control);
             this.Controls.Add(this.grp_conf);
             this.Controls.Add(this.grp_auth);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(700, 425);
-            this.MinimumSize = new System.Drawing.Size(700, 425);
+            this.MinimumSize = new System.Drawing.Size(702, 513);
             this.Name = "FrmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "OSP";
             this.grp_auth.ResumeLayout(false);
             this.grp_auth.PerformLayout();
             this.grp_conf.ResumeLayout(false);
-            this.grp_conf.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_volume)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_end)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.nud_start)).EndInit();
+            this.groupBox3.ResumeLayout(false);
+            this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nudDelay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_threads)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_volume)).EndInit();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_start)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.nud_end)).EndInit();
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.grp_control.ResumeLayout(false);
             this.grp_control.PerformLayout();
             this.grp_fileds.ResumeLayout(false);
@@ -594,7 +706,6 @@ namespace OSP {
         private System.Windows.Forms.GroupBox grp_conf;
         private System.Windows.Forms.TextBox txt_outpath;
         private System.Windows.Forms.NumericUpDown nud_threads;
-        private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox grp_control;
         private System.Windows.Forms.Label lbl_state;
@@ -628,6 +739,12 @@ namespace OSP {
         private System.Windows.Forms.RadioButton chkLoadFromFile;
         private System.Windows.Forms.RadioButton chkUseCounter;
         private System.Windows.Forms.OpenFileDialog ofdSourceFile;
+        private System.Windows.Forms.GroupBox groupBox3;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.NumericUpDown nudDelay;
     }
 }
 
