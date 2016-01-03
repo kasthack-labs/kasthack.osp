@@ -30,12 +30,14 @@ using System;
 using System.Diagnostics;
 using System.Drawing;
 using System.Globalization;
+using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Windows.Forms;
 using kasthack.vksharp;
 using kasthack.vksharp.DataTypes.Enums;
 
-namespace VK_load {
+namespace OSP {
     public partial class FrmMain : Form {
         private Core _api;
         private bool _running;
@@ -55,20 +57,16 @@ namespace VK_load {
             this.chkGZip.DataBindings.Add( nameof( chkGZip.Checked ), options, nameof( options.GZip ), false, DataSourceUpdateMode.OnPropertyChanged);
             this.chkExecute.DataBindings.Add(nameof(chkExecute.Checked), options, nameof(options.Execute), false, DataSourceUpdateMode.OnPropertyChanged);
             this.chkDelay.DataBindings.Add(nameof(chkDelay.Checked), options, nameof(options.Delay), false, DataSourceUpdateMode.OnPropertyChanged);
+            this.chkUseCounter.DataBindings.Add(nameof(chkUseCounter.Checked), options, nameof(options.UseCounter), false, DataSourceUpdateMode.OnPropertyChanged);
+            this.txtSourcefile.DataBindings.Add(nameof(txtSourcefile.Text), options, nameof(options.SourceFile), false, DataSourceUpdateMode.OnPropertyChanged);
         }
 
         private void OpenOAuth(object sender, EventArgs e) => Process.Start(Token.GetOAuthURL( Core.AppID, Permission.Offline ));
 
         private void CompleteAuth(object sender, EventArgs e) {
             _api = new Core(txt_token.Text);
-            //if ( !_api.IsLogged )
-            //    MessageBox.Show( @"Bad url! Please try again.", @"Warning!", MessageBoxButtons.OK, MessageBoxIcon.Stop );
-            chkExecute.Enabled = _api.IsLogged;
             chkDelay.Enabled = !_api.IsLogged;
-            if ( !_api.IsLogged ) {
-                chkExecute.Checked = false;
-                chkDelay.Checked = false;
-            }
+            chkExecute.Enabled = chkExecute.Checked = chkDelay.Checked = _api.IsLogged;
             grp_conf.Enabled = grp_control.Enabled = grp_fileds.Enabled = true;
         }
         
@@ -89,8 +87,20 @@ namespace VK_load {
             _cancel = false;
             UpdateInterfaceIsRunnig();
             this.options.Fields = GetFields();
-            if ( options.End - options.Start + 1 < options.VolumeSize ) MessageBox.Show( "Volume must be less than end-start", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation );
-            else await _api.LoadUsers( options ).ConfigureAwait( true );
+            if ( options.UseCounter ) {
+                if ( options.End - options.Start + 1 < options.VolumeSize ) {
+                    MessageBox.Show("Volume must be less than end-start", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
+            }
+            else {
+                if ( !File.Exists( options.SourceFile ) ) {
+                    MessageBox.Show("Source file does not exist", "Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    return;
+                }
+                new Thread(() => lblTotalProfiles.Invoke((Action)(() => lblTotalProfiles.Text = File.ReadLines(options.SourceFile).Count().ToString()))).Start();
+            }
+            await _api.LoadUsers( options ).ConfigureAwait( true );
             _running = false;
             btn_run.Enabled = true;
             UpdateInterfaceIsRunnig();
@@ -142,7 +152,7 @@ namespace VK_load {
                              "GUI Fixes by STAM" + Environment.NewLine +
                              "License: The MIT License (MIT)" + Environment.NewLine +
                              "_______________________________________________________" + Environment.NewLine + 
-                             "https://github.com/kasthack/OslikSuslikPaukan", @"Info:", MessageBoxButtons.OK, MessageBoxIcon.Information); 
+                             "https://github.com/kasthack/OSP", @"Info:", MessageBoxButtons.OK, MessageBoxIcon.Information); 
             MessageBox.Show(@"The MIT License (MIT)" + Environment.NewLine + Environment.NewLine +
                             @"Copyright © 2013-2014 EpicMorg" + Environment.NewLine + Environment.NewLine +
                             @"Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the ''Software'')," +
@@ -157,6 +167,26 @@ namespace VK_load {
         private void ResetToken(object sender, LinkLabelLinkClickedEventArgs e) => txt_token.Text = "";
 
         private void checkBox1_CheckedChanged(object sender, EventArgs e) => nud_volume.Maximum = chkExecute.Checked ? 25000 : 1000;
+        
+        private void button3_Click(object sender, EventArgs e) {
+            if ( ofdSourceFile.ShowDialog() == DialogResult.OK) {
+                var f = ofdSourceFile.FileName;
+                txtSourcefile.Text = f;
+                lblTotalProfiles.Text = "{file}";
+            }
+        }
+
+        private void chkUseCounter_CheckedChanged( object sender, EventArgs e ) {
+            var counter = chkUseCounter.Checked;
+            this.label10.Enabled = this.nud_start.Enabled = this.label11.Enabled = this.nud_end.Enabled = counter;
+            txtSourcefile.Enabled = this.button3.Enabled = !counter;
+        }
+
+        private void nud_start_ValueChanged(object sender, EventArgs e) => TotalProfilesWithCounter();
+
+        private string TotalProfilesWithCounter() { return this.lblTotalProfiles.Text = ( nud_end.Value - nud_start.Value + 1 ).ToString(); }
+
+        private void nud_end_ValueChanged(object sender, EventArgs e) => TotalProfilesWithCounter();
 
         //private void OnLoad(object sender, EventArgs e) => 
     }
