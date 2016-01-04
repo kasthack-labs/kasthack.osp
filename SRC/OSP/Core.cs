@@ -41,7 +41,7 @@ namespace OSP {
                     try {
                         int[] users = i;
                         if ( options.CancellationToken?.Invoke() ?? false ) return;
-                        var outfile = GetChunkPath(options.Path, users, options.GZip );
+                        var outfile = GetChunkPath(options, users );
                         if ( !File.Exists( outfile ) ) {
                             var resp = await GetUsers( options, users ).ConfigureAwait(false);
                             if ( resp == null ) return;
@@ -99,16 +99,20 @@ namespace OSP {
             }
         }
 
-        private static string GetChunkPath( string downloadDir, int[] users, bool gzip ) {
-            var filename = $"{users.First()}_{users.Length}.json{( gzip ? ".gz" : "" )}";
-            downloadDir = Path.Combine( downloadDir, ( users.First() / 1000000 ).ToString() );
-            if ( !Directory.Exists( downloadDir ) ) Directory.CreateDirectory( downloadDir );
-            return Path.Combine( downloadDir, filename );
+        private static string GetChunkPath( LoadOptions options, int[] users ) {
+            var filename = $"{users.First()}_{users.Length}.json{( options.GZip ? ".gz" : "" )}";
+            var dir = options.Path;
+            if (options.Subdirs) {
+                dir = Path.Combine(dir, ( users.First() / 1000000 ).ToString() );
+                if ( !Directory.Exists(dir) ) Directory.CreateDirectory(dir);
+            }
+            return Path.Combine(dir, filename );
         }
     }
 
     public class LoadOptions {
 
+        public bool Subdirs { get; set; } = true;
         public bool DelayEnabled { get; set; } = true;
         public int Start { get; set; } = 1;
         public int End { get; set; } = 350000000;

@@ -76,6 +76,7 @@ namespace OSP {
             this.button2 = new System.Windows.Forms.Button();
             this.grp_fileds = new System.Windows.Forms.GroupBox();
             this.ofdSourceFile = new System.Windows.Forms.OpenFileDialog();
+            this.chkSubdirs = new System.Windows.Forms.CheckBox();
             this.grp_auth.SuspendLayout();
             this.grp_conf.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -178,7 +179,7 @@ namespace OSP {
             this.grp_conf.Enabled = false;
             this.grp_conf.Location = new System.Drawing.Point(7, 85);
             this.grp_conf.Name = "grp_conf";
-            this.grp_conf.Size = new System.Drawing.Size(479, 253);
+            this.grp_conf.Size = new System.Drawing.Size(479, 297);
             this.grp_conf.TabIndex = 1;
             this.grp_conf.TabStop = false;
             this.grp_conf.Text = "Step 4. Configure:";
@@ -431,20 +432,20 @@ namespace OSP {
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.groupBox1.Controls.Add(this.chkSubdirs);
             this.groupBox1.Controls.Add(this.label8);
             this.groupBox1.Controls.Add(this.txt_outpath);
             this.groupBox1.Controls.Add(this.btn_folder);
             this.groupBox1.Controls.Add(this.chkGZip);
             this.groupBox1.Location = new System.Drawing.Point(6, 188);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(462, 52);
+            this.groupBox1.Size = new System.Drawing.Size(462, 109);
             this.groupBox1.TabIndex = 19;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Output:";
             // 
             // label8
             // 
-            this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.label8.AutoSize = true;
             this.label8.Location = new System.Drawing.Point(8, 23);
             this.label8.Name = "label8";
@@ -458,14 +459,14 @@ namespace OSP {
             | System.Windows.Forms.AnchorStyles.Right)));
             this.txt_outpath.Location = new System.Drawing.Point(55, 20);
             this.txt_outpath.Name = "txt_outpath";
-            this.txt_outpath.Size = new System.Drawing.Size(280, 20);
+            this.txt_outpath.Size = new System.Drawing.Size(365, 20);
             this.txt_outpath.TabIndex = 3;
             this.txt_outpath.TextChanged += new System.EventHandler(this.txt_outpath_TextChanged);
             // 
             // btn_folder
             // 
             this.btn_folder.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.btn_folder.Location = new System.Drawing.Point(340, 20);
+            this.btn_folder.Location = new System.Drawing.Point(426, 19);
             this.btn_folder.Name = "btn_folder";
             this.btn_folder.Size = new System.Drawing.Size(24, 20);
             this.btn_folder.TabIndex = 10;
@@ -477,7 +478,7 @@ namespace OSP {
             // 
             this.chkGZip.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.chkGZip.AutoSize = true;
-            this.chkGZip.Location = new System.Drawing.Point(370, 22);
+            this.chkGZip.Location = new System.Drawing.Point(370, 60);
             this.chkGZip.Name = "chkGZip";
             this.chkGZip.Size = new System.Drawing.Size(73, 17);
             this.chkGZip.TabIndex = 11;
@@ -500,7 +501,7 @@ namespace OSP {
             this.grp_control.Controls.Add(this.label6);
             this.grp_control.Controls.Add(this.label5);
             this.grp_control.Enabled = false;
-            this.grp_control.Location = new System.Drawing.Point(6, 341);
+            this.grp_control.Location = new System.Drawing.Point(6, 388);
             this.grp_control.Name = "grp_control";
             this.grp_control.Size = new System.Drawing.Size(480, 121);
             this.grp_control.TabIndex = 2;
@@ -620,7 +621,7 @@ namespace OSP {
             this.lstFields.FormattingEnabled = true;
             this.lstFields.Location = new System.Drawing.Point(6, 48);
             this.lstFields.Name = "lstFields";
-            this.lstFields.Size = new System.Drawing.Size(175, 394);
+            this.lstFields.Size = new System.Drawing.Size(175, 439);
             this.lstFields.TabIndex = 3;
             // 
             // button1
@@ -654,16 +655,26 @@ namespace OSP {
             this.grp_fileds.Enabled = false;
             this.grp_fileds.Location = new System.Drawing.Point(492, 5);
             this.grp_fileds.Name = "grp_fileds";
-            this.grp_fileds.Size = new System.Drawing.Size(187, 457);
+            this.grp_fileds.Size = new System.Drawing.Size(187, 504);
             this.grp_fileds.TabIndex = 13;
             this.grp_fileds.TabStop = false;
             this.grp_fileds.Text = "Fields:";
+            // 
+            // chkSubdirs
+            // 
+            this.chkSubdirs.AutoSize = true;
+            this.chkSubdirs.Location = new System.Drawing.Point(210, 60);
+            this.chkSubdirs.Name = "chkSubdirs";
+            this.chkSubdirs.Size = new System.Drawing.Size(125, 17);
+            this.chkSubdirs.TabIndex = 19;
+            this.chkSubdirs.Text = "Create subdirectories";
+            this.chkSubdirs.UseVisualStyleBackColor = true;
             // 
             // FrmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(686, 474);
+            this.ClientSize = new System.Drawing.Size(686, 521);
             this.Controls.Add(this.grp_fileds);
             this.Controls.Add(this.grp_control);
             this.Controls.Add(this.grp_conf);
@@ -745,6 +756,7 @@ namespace OSP {
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.NumericUpDown nudDelay;
+        private System.Windows.Forms.CheckBox chkSubdirs;
     }
 }
 

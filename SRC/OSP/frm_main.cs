@@ -58,6 +58,7 @@ namespace OSP {
             this.chkGZip.DataBindings.Add( nameof( chkGZip.Checked ), options, nameof( options.GZip ), false, DataSourceUpdateMode.OnPropertyChanged);
             this.chkExecute.DataBindings.Add(nameof(chkExecute.Checked), options, nameof(options.Execute), false, DataSourceUpdateMode.OnPropertyChanged);
             this.chkDelay.DataBindings.Add(nameof(chkDelay.Checked), options, nameof(options.DelayEnabled), false, DataSourceUpdateMode.OnPropertyChanged);
+            this.chkSubdirs.DataBindings.Add(nameof(chkSubdirs.Checked), options, nameof(options.Subdirs), false, DataSourceUpdateMode.OnPropertyChanged);
             this.chkUseCounter.DataBindings.Add(nameof(chkUseCounter.Checked), options, nameof(options.UseCounter), false, DataSourceUpdateMode.OnPropertyChanged);
             this.txtSourcefile.DataBindings.Add(nameof(txtSourcefile.Text), options, nameof(options.SourceFile), false, DataSourceUpdateMode.OnPropertyChanged);
         }
