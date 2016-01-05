@@ -5,4 +5,4 @@ OSP
 
 [Свежайший релиз](https://github.com/kasthack/OSP/releases/latest)
 
-![screenshot](https://i.imgur.com/0pjnCJy.png)
+![screenshot](https://i.imgur.com/ai6livb.png)
