@@ -2,7 +2,7 @@
 using System.Linq;
 using kasthack.vksharp.DataTypes.Enums;
 
-namespace OSP {
+namespace kasthack.OSP {
     partial class FrmMain {
         /// <summary>
         /// Требуется переменная конструктора.
@@ -679,11 +679,11 @@ namespace OSP {
             this.Controls.Add(this.grp_control);
             this.Controls.Add(this.grp_conf);
             this.Controls.Add(this.grp_auth);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            //this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MinimumSize = new System.Drawing.Size(702, 513);
             this.Name = "FrmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "OSP";
+            this.Text = "OSP by kasthack";
             this.grp_auth.ResumeLayout(false);
             this.grp_auth.PerformLayout();
             this.grp_conf.ResumeLayout(false);

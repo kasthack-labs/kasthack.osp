@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.24720.0
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2005
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OSP", "OSP\OSP.csproj", "{7B3C4D72-47BC-40F8-8FE8-C2C817B5007E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "kasthack.OSP", "OSP\kasthack.OSP.csproj", "{7B3C4D72-47BC-40F8-8FE8-C2C817B5007E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +18,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {99709A1A-5939-4575-9473-796494371EC1}
 	EndGlobalSection
 EndGlobal
