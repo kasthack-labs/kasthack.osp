@@ -1,0 +1,19 @@
+version: 1.0.{build}
+image: Visual Studio 2017
+before_build:
+- ps: dotnet restore
+build:
+  publish_nuget: true
+  verbosity: minimal
+configuration:
+  - Release
+artifacts:
+- path: bin/Release/net46
+  name: GH
+deploy:
+- provider: GitHub
+  auth_token:
+    secure: MfE4qSIr2yoNR8/GUgRVJgaM9jVupDe40JAgb5P/Es/bD6DGzuqkTrHnzpsIFTPH
+  artifact: GH
+  on:
+    branch: master
